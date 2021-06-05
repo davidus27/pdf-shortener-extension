@@ -1,8 +1,14 @@
 {
-  "short_name": "My Extension",
-  "name": "My Extension",
+  "short_name": "PDF Shortener",
+  "name": "PDF Shortener",
   "version": "1.1",
   "manifest_version": 2,
+  "icons": {
+    "16": "./assets/pdf-file16.png",
+    "64": "./assets/pdf-file64.png",
+    "256": "./assets/pdf-file256.png",
+    "512": "./assets/pdf-file512.png"
+  },
   "background": {
     "scripts": ["app/background.js"]
   },
@@ -17,5 +23,6 @@
   "web_accessible_resources":[
     "/static/css/content.css", "/static/media/*"
   ],
-  "content_security_policy": "script-src 'self' 'sha256-GgRxrVOKNdB4LrRsVPDSbzvfdV4UqglmviH9GoBJ5jk='; object-src 'self'"
+  "content_security_policy": "script-src 'self' 'sha256-GgRxrVOKNdB4LrRsVPDSbzvfdV4UqglmviH9GoBJ5jk='; object-src 'self'",
+  "permissions": []
 }

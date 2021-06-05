@@ -1,26 +1,28 @@
-/*global chrome*/
-
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import NoDocumentFound from './components/NoDocumentFound';
+import Checkout from './components/Checkout';
+import Loading from './components/Loading';
+import './styles/App.css';
+import './styles/bootstrap.min.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          {this.props.isExt ? 
-            <img src={chrome.runtime.getURL("static/media/logo.svg")} className="App-logo" alt="logo" />
-          :
-            <img src={logo} className="App-logo" alt="logo" />
-          }
-
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <Router>
+          <Switch>
+            <Route path="/noDocumentFound" component={NoDocumentFound} />
+            <Route exact path="/Checkout" component={Checkout} />
+            <Route exact path="/Loading" component={Loading} />
+            <Route path="/" component={NoDocumentFound} />
+          </Switch>
+        </Router>
+        </div>
     );
   }
 }
