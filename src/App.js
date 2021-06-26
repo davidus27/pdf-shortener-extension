@@ -15,15 +15,13 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div className="wrapper">
-          <Router>
-            <Switch>
-              <Route exact path="/Checkout" component={Checkout} />
-              <Route exact path="/Loading" component={Loading} />
-              <Route path="/" component={NoDocumentFound} />
-            </Switch>
+        <Router>
+          <Switch>
+            <Route exact path="/Checkout" component={Checkout} />
+            <Route exact path="/Loading" component={Loading} />
+            <Route path="/" component={NoDocumentFound} />
+          </Switch>
           </Router>
-        </div>
         <Footer />
       </div>
     );
