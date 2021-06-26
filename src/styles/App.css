@@ -56,18 +56,6 @@ html, body {
   height: 100%;
 }
 
-.wrapper {
-  background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
-  min-height: calc(100% + 20px);
-  margin-bottom: -20px;
-}
-
-.wrapper:after {
-  display: block;
-  content: "";
-  height: 20px;
-}
-
 footer {
   text-align: center;
   position: fixed;
