@@ -5,13 +5,12 @@ import {
   Route
 } from "react-router-dom";
 
-
-import NoDocumentFound from './components/NoDocumentFound';
-import Checkout from './components/Checkout';
-import Loading from './components/Loading';
-import './styles/App.css';
-import './styles/bootstrap.min.css';
-import Footer from './components/Footer';
+import NoDocumentFound from './NoDocumentFound';
+import Checkout from './Checkout';
+import Loading from './Loading';
+import '../styles/App.css';
+import '../styles/bootstrap.min.css';
+import Footer from './Footer';
 
 function App() {
 
