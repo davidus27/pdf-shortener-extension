@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { isPDF } from '../content/content_functions';
 
 class NoDocumentFound extends Component {
-    
-    isPDF() {
-        // if window contains one of this it is probably a pdf file
-        return Boolean(window?.MimeTypes || window?.PdfNavigator || window.location.href.match(/\.pdf/i));
-    }
 
     render() {
-        if (this.isPDF()) {
+        if (isPDF()) {
             return (<Redirect to="/Checkout" />);
         }
         return (
