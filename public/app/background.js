@@ -14,4 +14,5 @@ chrome.windows.onFocusChanged.addListener((windowId) => {
    if (windowId === chrome.windows.WINDOW_ID_NONE) {
       window.close();
    }
-})
+});
+

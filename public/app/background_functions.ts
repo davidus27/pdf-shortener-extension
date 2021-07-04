@@ -1,10 +1,5 @@
 import { PDFDocument, PDFName, PDFPage, PDFRef } from 'pdf-lib';
 
-const isPDF = () => {
-    // if window contains one of this it is probably a pdf file
-    return Boolean(window?.MimeTypes || window?.PdfNavigator || window.location.href.match(/\.pdf/i));
-}
-
 const processTitle = (title) => {
     return title.split("/").pop().replace("%20", " ");
 }
@@ -17,7 +12,7 @@ class DocumentCutter {
 
     constructor(protected url: string) {
         // this.url = url;
-        this.pdfDoc = null;
+        // this.pdfDoc = null;
         this.foundPages = {};
     }
 
@@ -88,4 +83,4 @@ class NewDocumentCreator extends DocumentCutter {
 }
 
 
-export {isPDF, processTitle, NewDocumentCreator};
+export {processTitle, NewDocumentCreator};
