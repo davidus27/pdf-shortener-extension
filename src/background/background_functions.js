@@ -1,28 +1,24 @@
-import { PDFDocument, PDFName, PDFPage, PDFRef } from 'pdf-lib';
+import { PDFDocument, PDFName } from 'pdf-lib';
 
 const processTitle = (title) => {
     return title.split("/").pop().replace("%20", " ");
 }
 
 class DocumentCutter {
-    
-    // protected url: string;
-    protected pdfDoc: PDFDocument;
-    protected foundPages: object;
-
-    constructor(protected url: string) {
-        // this.url = url;
-        // this.pdfDoc = null;
+    constructor(fileName) {
+        this.filePath = fileName;
+        this.pdfDoc = null;
         this.foundPages = {};
     }
 
     async initialize() {
-        if(!/file:\/\//i.test(this.url)) {
-            const arrayBuffer = await fetch(this.url).then(res => res.arrayBuffer());
-            this.pdfDoc = await PDFDocument.load(arrayBuffer)
+        if(!/file:\/\//i.test(this.filePath)) {
+            // const arrayBuffer = await fetch(this.filePath).then(res => res.arrayBuffer());
+            // this.pdfDoc = await PDFDocument.load(arrayBuffer);
+            this.pdfDoc = await PDFDocument.load(this.filePath);
             return this;
         }
-        const arrayBuffer = await fetch(this.url).then(res => res.arrayBuffer());
+        const arrayBuffer = await fetch(this.filePath).then(res => res.arrayBuffer());
         const uint8 = new Uint8Array(arrayBuffer);
         this.pdfDoc = await PDFDocument.load(uint8);
         return this;
@@ -40,7 +36,7 @@ class DocumentCutter {
     findPages() {
         if(!this.pdfDoc) return this;
         const documentReferenceObjects = this.pdfDoc.context?.indirectObjects;
-        this.pdfDoc.getPages().forEach((page: PDFPage, pageIndex: number) => {
+        this.pdfDoc.getPages().forEach((page, pageIndex) => {
             if(!page.node.Annots()?.array) return;
             for(let annotation of page.node.Annots()?.array) {
                 if(DocumentCutter.satisifiesRules(documentReferenceObjects.get(annotation))) {
@@ -64,22 +60,29 @@ class DocumentCutter {
 
 class NewDocumentCreator extends DocumentCutter {
     
-    // TODO: change types
-    static download(content: any, mimeType: string, filename: string) {
+    async createNewPDF(fileName=`New_${processTitle(this.filePath)}`) {
+        if(!this.pdfDoc.getPageCount()) return false;
+        const pdfBytes = await this.pdfDoc.save();
+        NewDocumentCreator.download(pdfBytes, "application/pdf", fileName);
+        return true;
+    }
+
+    static downloadFile = (content, mimeType, filename) => {
         const a = document.createElement('a')
         const blob = new Blob([content], {type: mimeType})
         const url = URL.createObjectURL(blob)
         a.setAttribute('href', url)
         a.setAttribute('download', filename)
         a.click()
+    };
+  
+    static uploadFile(filePath, callback) {
+        const httpRequest = new XMLHttpRequest();
+        httpRequest.open("GET", filePath);
+        httpRequest.send();
+        httpRequest.onload = callback;
     }
-    
-    async createNewPDF(fileName=`New_${processTitle(this.url)}`) {
-        if(!this.pdfDoc.getPageCount()) return false;
-        const pdfBytes = await this.pdfDoc.save();
-        NewDocumentCreator.download(pdfBytes, "pdf/application", fileName);
-        return true;
-    }
+  
 }
 
 
