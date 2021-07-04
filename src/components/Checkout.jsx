@@ -4,6 +4,15 @@ import { Button } from 'react-bootstrap';
 
 class Checkout extends Component {
 
+  getName() {
+    const splittedPath = window.location.href.split('/',);
+    const pdfName = splittedPath[splittedPath.length - 1];
+    if (pdfName.length > 50) {
+      return pdfName.slice(0, 5) + "..." + pdfName.slice(-7);
+    }
+    return pdfName;
+  }
+
   handleClick() {
     // send signal to the background script
     // redirect to the loading page
@@ -12,9 +21,9 @@ class Checkout extends Component {
 
   render() {
     return (
-        <div className="App-header" id="pdf-found-div">
-        <div className="position-absolute top-0 start-50 translate-middle-x">
-            <h1 className="text-center display-5">PDF found</h1>
+        <div id="pdf-found-div">
+        <div className="App-header position-absolute top-0 start-50 translate-middle-x">
+            <h1 className="text-center display-5">PDF {this.getName()} found </h1>
         </div>
         
         <div className="position-absolute bottom-0 start-50 translate-middle-x">
