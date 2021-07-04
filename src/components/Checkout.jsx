@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import {sendPDFProcessing} from '../content/content_functions';
 
 class Checkout extends Component {
 
@@ -15,8 +16,7 @@ class Checkout extends Component {
 
   handleClick() {
     // send signal to the background script
-    // redirect to the loading page
-    console.log('TEST');
+    sendPDFProcessing(window.location.href);
   }
 
   render() {
