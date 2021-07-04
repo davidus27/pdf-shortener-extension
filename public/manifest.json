@@ -10,7 +10,7 @@
     "512": "./assets/pdf-file512.png"
   },
   "background": {
-    "scripts": ["./app/background.js"],
+    "scripts": ["/static/js/background.js"],
     "persistent": false
   },
   "browser_action": {},
