@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
 class Loading extends Component {
+
+  endLoading() {
+    
+    return (<Redirect to="/Checkout" />);
+  }
+
   render() {
     return (
         <div id="loading-screen">
